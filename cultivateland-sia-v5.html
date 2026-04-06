@@ -1,0 +1,1256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Site Intelligence Analysis by CultivateLAND and NeuraCities — turning site complexity into strategic clarity.">
+<title>Site Intelligence Analysis</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,wght@0,300;0,400;0,600;0,700;1,300&family=Cormorant:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Montserrat:wght@500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --c1:#112D32;--c2:#254E58;--c3:#88BDBC;
+  --c4:#4F4A41;--c5:#6E6658;--c6:#9E9C98;
+  --cw:#FFFFFF;--co:#F6F7F6;
+  --rule:rgba(37,78,88,.10);--rule-l:rgba(136,189,188,.12);
+  --nc-coral:#FF7C70;--nc-teal:#008080;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--cw);color:var(--c4);font-family:'Questa Sans','Nunito Sans',sans-serif;font-weight:300;line-height:1.7;overflow-x:hidden}
+
+/* ── NAV ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1.2rem 3.5rem;background:rgba(17,45,50,.97);backdrop-filter:blur(12px);border-bottom:1px solid var(--rule-l);transition:padding .3s}
+.nav-brand{text-decoration:none;display:flex;align-items:center}
+.nav-links{display:flex;align-items:center;gap:2.2rem;list-style:none}
+.nav-links a{font-size:.68rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.48);text-decoration:none;transition:color .2s}
+.nav-links a:hover{color:var(--c3)}
+.nav-cta{color:var(--c1)!important;background:var(--c3)!important;padding:.5rem 1.4rem;border-radius:2px;transition:background .2s!important}
+.nav-cta:hover{background:#9dcecb!important;color:var(--c1)!important}
+
+/* ── SHARED ── */
+.inner{max-width:1140px;margin:0 auto;padding:0 3.5rem}
+.sec-d{background:var(--c1);padding:5.5rem 0}
+.sec-w{background:var(--cw);padding:5.5rem 0}
+.sec-o{background:var(--co);padding:5.5rem 0}
+.sec-m{background:var(--c2);padding:5.5rem 0}
+.eyebrow{display:block;font-size:.64rem;font-weight:700;letter-spacing:.26em;text-transform:uppercase;color:var(--c2);margin-bottom:.9rem}
+.eyebrow-l{color:var(--c3)}
+.h2{font-family:'Cormorant',serif;font-size:clamp(1.9rem,4vw,3rem);font-weight:300;line-height:1.12;color:var(--c1)}
+.h2 em{font-style:italic;color:var(--c2)}
+.h2-l{color:var(--cw)}.h2-l em{color:var(--c3)}
+.rule{width:36px;height:2px;background:var(--c3);margin:1.4rem 0}
+.btn-p{display:inline-block;padding:.85rem 2rem;background:var(--c3);color:var(--c1);font-family:'Questa Sans','Nunito Sans',sans-serif;font-size:.72rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;border-radius:2px;transition:background .2s,transform .15s}
+.btn-p:hover{background:#9dcecb;transform:translateY(-1px)}
+.btn-o{display:inline-block;padding:.85rem 2rem;border:1px solid rgba(136,189,188,.35);color:rgba(255,255,255,.7);font-family:'Questa Sans','Nunito Sans',sans-serif;font-size:.72rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;border-radius:2px;transition:border-color .2s,color .2s}
+.btn-o:hover{border-color:var(--c3);color:var(--c3)}
+
+/* ── HERO ── */
+.hero{position:relative;min-height:100vh;background:var(--c1);display:flex;flex-direction:column;align-items:flex-start;justify-content:center;padding:9rem 3.5rem 5rem;overflow:hidden}
+.hero-topo{position:absolute;inset:0;width:100%;height:100%;opacity:.055;pointer-events:none}
+.hero-glow{position:absolute;right:0;top:0;bottom:0;width:55%;background:radial-gradient(ellipse at 75% 50%,rgba(136,189,188,.07) 0%,transparent 65%);pointer-events:none}
+.hero-fade{position:absolute;bottom:0;left:0;right:0;height:90px;background:linear-gradient(transparent,var(--cw));pointer-events:none;z-index:2}
+.hero-eyebrow{font-size:.65rem;font-weight:700;letter-spacing:.26em;text-transform:uppercase;color:var(--c3);margin-bottom:1.8rem;opacity:0;animation:fadeUp .7s ease .2s forwards}
+.hero-title{font-family:'Cormorant',serif;font-size:clamp(3rem,7.5vw,6.5rem);font-weight:300;line-height:1.03;color:var(--cw);max-width:800px;opacity:0;animation:fadeUp .85s ease .35s forwards}
+.hero-title em{font-style:italic;color:var(--c3)}
+.hero-line{width:44px;height:1px;background:var(--c3);margin:2rem 0;opacity:0;animation:fadeIn .8s ease .55s forwards}
+.hero-sub{font-size:clamp(.95rem,1.6vw,1.1rem);font-weight:300;line-height:1.8;color:rgba(255,255,255,.58);max-width:480px;opacity:0;animation:fadeUp .8s ease .65s forwards}
+.hero-acts{display:flex;gap:1rem;margin-top:2.6rem;flex-wrap:wrap;opacity:0;animation:fadeUp .8s ease .85s forwards}
+.hero-scroll{position:absolute;bottom:5rem;left:3.5rem;display:flex;align-items:center;gap:.7rem;opacity:0;animation:fadeIn 1s ease 1.3s forwards;z-index:3}
+.hero-scroll span{font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.28)}
+.scroll-bar{width:32px;height:1px;background:linear-gradient(to right,rgba(136,189,188,.5),transparent);animation:scrollFade 2.2s ease infinite}
+
+/* ════════════════════════════════
+   CHALLENGE — v5 visual cards
+════════════════════════════════ */
+.pain-lede{max-width:700px;font-size:.98rem;line-height:1.9;color:var(--c5);margin-top:1.1rem}
+.pain-outcomes{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:2rem}
+.pain-outcome{background:rgba(255,255,255,.68);border:1px solid var(--rule);padding:1.1rem 1.2rem 1.2rem}
+.pain-outcome strong{display:block;font-size:.66rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--c2);margin-bottom:.45rem}
+.pain-outcome span{display:block;font-size:.82rem;line-height:1.65;color:var(--c5)}
+.pain-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:2rem}
+.pain-card{background:var(--c1);overflow:hidden;position:relative;display:flex;flex-direction:column;border:1px solid rgba(17,45,50,.06);transition:transform .3s,box-shadow .3s}
+.pain-card:hover{transform:translateY(-4px);box-shadow:0 16px 48px rgba(17,45,50,.22)}
+/* teal line accent on top */
+.pain-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--c3)}
+.pain-vis{flex-shrink:0;line-height:0;padding:.8rem .8rem 0;background:linear-gradient(180deg,rgba(37,78,88,.04),transparent);position:relative}
+.pain-vis svg{width:100%;display:block;border-radius:2px}
+.svg-ph{position:absolute;top:1rem;right:1rem;background:var(--cw);padding:.28rem .58rem;font-size:.52rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--c1);line-height:1;z-index:2;pointer-events:none}
+.pain-body{padding:2rem 2.2rem 2.4rem;flex:1;display:flex;flex-direction:column}
+.pain-tag{font-size:.6rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--c3);margin-bottom:.8rem;display:block}
+.pain-stmt{font-family:'Cormorant',serif;font-size:1.35rem;font-weight:400;color:var(--cw);line-height:1.3;margin-bottom:1rem}
+.pain-desc{font-size:.84rem;color:rgba(255,255,255,.45);line-height:1.8}
+.pain-meta{margin-top:auto;padding-top:1.15rem;font-size:.62rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:rgba(136,189,188,.62)}
+
+/* ── WHAT IT IS ── */
+.what-layout{display:grid;grid-template-columns:minmax(260px,340px) 1fr;gap:2rem;align-items:start;margin-top:2.5rem}
+.diag-wrap{border:1px solid var(--rule-l);background:rgba(17,45,50,.45);border-radius:2px;padding:.8rem;position:relative}
+.diag-wrap svg{width:100%;display:block}
+
+/* What-it-is 3 points — vertical numbered strip */
+.what-strip{border-top:1px solid var(--rule-l);border-bottom:1px solid var(--rule-l)}
+.what-row{display:grid;grid-template-columns:56px 1fr;align-items:start;padding:1.4rem 0;border-bottom:1px solid var(--rule-l);gap:1rem;transition:background .2s}
+.what-row:hover{background:rgba(136,189,188,.04)}
+.what-row:last-child{border-bottom:none}
+.what-n{font-family:'Cormorant',serif;font-size:2.2rem;font-weight:300;color:var(--c3);opacity:.45;line-height:1;text-align:left}
+.what-copy{display:grid;gap:.35rem;padding-top:.2rem}
+.what-title{font-family:'Cormorant',serif;font-size:1.15rem;font-weight:500;color:var(--cw);line-height:1.3}
+.what-desc{font-size:.82rem;color:rgba(255,255,255,.45);line-height:1.65}
+
+/* ════════════════════════════════
+   VALUE — v6 interactive decision navigator
+════════════════════════════════ */
+.val-intro-row{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:end;margin-bottom:4rem}
+.val-lede-text{font-size:.97rem;line-height:1.85;color:var(--c5);max-width:440px}
+.value-shell{display:grid;grid-template-columns:minmax(280px,360px) 1fr;gap:1.8rem;align-items:start}
+.value-tabs{display:grid;gap:.8rem}
+.val-tab{appearance:none;width:100%;border:1px solid var(--rule);background:var(--cw);padding:1rem 1.1rem;text-align:left;display:grid;grid-template-columns:48px 1fr 20px;gap:1rem;align-items:start;cursor:pointer;transition:border-color .2s,background .2s,transform .2s}
+.val-tab:hover,.val-tab:focus-visible,.val-tab.active{border-color:rgba(37,78,88,.22);background:rgba(37,78,88,.035);transform:translateY(-1px);outline:none}
+.vt-num{font-family:'Cormorant',serif;font-size:2rem;font-weight:300;line-height:1;color:rgba(37,78,88,.24)}
+.vt-copy{display:grid;gap:.3rem}
+.vt-title{font-family:'Cormorant',serif;font-size:1.15rem;font-weight:500;line-height:1.2;color:var(--c1)}
+.vt-tease{font-size:.8rem;line-height:1.6;color:var(--c5)}
+.vt-arrow{font-size:1rem;color:rgba(37,78,88,.28);line-height:1.4}
+.val-tab.active .vt-num,.val-tab.active .vt-title,.val-tab.active .vt-arrow{color:var(--c2)}
+.value-stage{border:1px solid var(--rule);background:linear-gradient(180deg,rgba(37,78,88,.03),rgba(37,78,88,.015));padding:2rem 2.1rem;min-height:100%}
+.value-panel{display:none}
+.value-panel.active{display:block;animation:fadeUp .4s ease}
+.value-kicker{display:inline-block;font-size:.6rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--c2);margin-bottom:.9rem}
+.value-head{font-family:'Cormorant',serif;font-size:clamp(1.6rem,3vw,2.4rem);font-weight:400;line-height:1.15;color:var(--c1);max-width:620px}
+.value-summary{font-size:.92rem;line-height:1.85;color:var(--c5);max-width:640px;margin-top:1rem}
+.value-proof{display:flex;flex-wrap:wrap;gap:.55rem;margin:1.35rem 0 1.8rem}
+.value-proof span{padding:.42rem .7rem;border:1px solid rgba(37,78,88,.12);background:rgba(255,255,255,.6);font-size:.6rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--c2)}
+.value-panel-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
+.value-card{background:var(--cw);border:1px solid var(--rule);padding:1.05rem 1.05rem 1.15rem;min-height:100%}
+.value-card-label{display:block;font-size:.58rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--c2);margin-bottom:.55rem}
+.value-card p{font-size:.81rem;line-height:1.7;color:var(--c5)}
+
+/* ── COMPARE ── */
+.cmp-table{margin-top:2.8rem;border:1px solid var(--rule)}
+.cmp-h{display:grid;grid-template-columns:1fr 1fr 1fr}
+.cmp-hc{padding:1.1rem 1.8rem;font-size:.62rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--c6);border-right:1px solid var(--rule);border-bottom:1px solid var(--rule)}
+.cmp-hc:last-child{border-right:none;background:var(--c2);color:var(--c3)}
+.cmp-r{display:grid;grid-template-columns:1fr 1fr 1fr;border-bottom:1px solid var(--rule);transition:background .15s}
+.cmp-r:last-child{border-bottom:none}
+.cmp-r:hover{background:rgba(37,78,88,.03)}
+.cmp-c{padding:1.3rem 1.8rem;font-size:.87rem;color:var(--c5);border-right:1px solid var(--rule);line-height:1.55;display:flex;align-items:flex-start;gap:.6rem}
+.cmp-c:last-child{border-right:none;color:var(--c1);font-weight:400;background:rgba(37,78,88,.03)}
+.cmp-c.lbl{font-size:.6rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--c2);align-items:center}
+.yes{color:var(--c2);flex-shrink:0}.no{color:var(--c6);flex-shrink:0}
+
+/* ════════════════════════════════
+   PROCESS — v6 clearer phase cards
+════════════════════════════════ */
+.proc-steps{display:grid;grid-template-columns:repeat(2,1fr);margin-top:4rem;gap:1.5rem}
+.proc-step{background:var(--cw);border:1px solid var(--rule);padding:1.6rem 1.7rem 1.8rem;display:flex;flex-direction:column;transition:transform .25s,box-shadow .25s}
+.proc-step:hover{transform:translateY(-3px);box-shadow:0 14px 34px rgba(17,45,50,.08)}
+.ps-dot-wrap{margin-bottom:1.35rem;display:block;position:relative}
+.ps-dot-wrap svg{width:100%;display:block;border-radius:2px}
+.ps-n{font-size:.6rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--c3);display:block;margin-bottom:.5rem}
+.ps-t{font-family:'Cormorant',serif;font-size:1.2rem;font-weight:500;color:var(--c1);margin-bottom:.6rem;line-height:1.25}
+.ps-d{font-size:.82rem;color:var(--c5);line-height:1.75}
+.ps-list{list-style:none;display:flex;flex-wrap:wrap;gap:.45rem;margin-top:auto;padding-top:1rem}
+.ps-list li{padding:.34rem .6rem;border:1px solid var(--rule);background:rgba(37,78,88,.03);font-size:.6rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--c2)}
+
+/* ── DELIVERABLES ── */
+.deliv-intro{display:grid;grid-template-columns:1.1fr .9fr;gap:3rem;align-items:end}
+.deliv-note{font-size:.95rem;line-height:1.85;color:rgba(255,255,255,.62);max-width:430px}
+.deliv-proof{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:2rem}
+.deliv-proof-card{padding:1rem 1.1rem;border:1px solid var(--rule-l);background:rgba(17,45,50,.22)}
+.deliv-proof-card strong{display:block;font-size:.62rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--c3);margin-bottom:.45rem}
+.deliv-proof-card span{display:block;font-size:.8rem;line-height:1.6;color:rgba(255,255,255,.6)}
+.deliv-g{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:2.4rem}
+.deliv-c{background:rgba(17,45,50,.22);border:1px solid var(--rule-l);transition:background .25s,transform .25s,box-shadow .25s;display:flex;flex-direction:column}
+.deliv-c:hover{background:rgba(17,45,50,.38);transform:translateY(-3px);box-shadow:0 16px 40px rgba(0,0,0,.14)}
+.deliv-thumb{padding:.8rem .8rem 0;flex-shrink:0;position:relative}
+.deliv-thumb svg{width:100%;display:block;border-radius:1px}
+.ph-label{position:absolute;top:1.15rem;right:1.15rem;background:var(--cw);text-align:center;padding:.28rem .55rem;font-size:.52rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--c1)}
+.deliv-body{padding:1.35rem 1.5rem 1.7rem;display:flex;flex-direction:column;gap:.8rem;flex:1}
+.deliv-t{font-family:'Cormorant',serif;font-size:1.1rem;font-weight:500;color:var(--cw);margin-bottom:.35rem;line-height:1.25}
+.deliv-d{font-size:.8rem;color:rgba(136,189,188,.72);line-height:1.7}
+.deliv-list{list-style:none;display:grid;gap:.42rem;margin-top:auto}
+.deliv-list li{font-size:.76rem;line-height:1.55;color:rgba(255,255,255,.58);padding-left:.95rem;position:relative}
+.deliv-list li::before{content:'';position:absolute;left:0;top:.58rem;width:4px;height:4px;border-radius:50%;background:var(--c3)}
+.deliv-cta{margin-top:2rem;padding:1.8rem 2rem;border:1px solid var(--rule-l);background:rgba(17,45,50,.18);display:flex;align-items:center;justify-content:space-between;gap:2rem}
+.deliv-cta-title{font-family:'Cormorant',serif;font-size:clamp(1.6rem,3vw,2.35rem);font-weight:400;line-height:1.15;color:var(--cw);max-width:620px}
+.deliv-cta-copy{font-size:.86rem;line-height:1.8;color:rgba(255,255,255,.58);max-width:600px;margin-top:.75rem}
+
+/* ── PROJECT STORIES ── */
+.stories-note{font-size:.82rem;color:var(--c5);line-height:1.7;max-width:540px;margin-top:.6rem}
+.stories-g{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:3rem}
+.story-c{background:var(--cw);border:1px solid var(--rule);overflow:hidden;display:flex;flex-direction:column}
+.story-img{flex-shrink:0;position:relative;line-height:0}
+.story-img svg{width:100%;display:block}
+.story-ph{position:absolute;top:1rem;right:1rem;display:flex}
+.story-ph-lbl{font-size:.56rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(136,189,188,.68);background:rgba(17,45,50,.78);padding:.28rem .58rem}
+.story-ph-sub{display:none}
+.story-body{padding:1.6rem 1.8rem 2rem;flex:1;display:flex;flex-direction:column}
+.story-tags{display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:1.1rem}
+.story-tag{font-size:.6rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:.25rem .7rem;background:rgba(37,78,88,.07);color:var(--c2);border-radius:1px}
+.story-status{display:flex;align-items:center;gap:.5rem;margin-bottom:.8rem}
+.story-dot{width:6px;height:6px;border-radius:50%;background:var(--c3);flex-shrink:0;animation:pulse 2.5s ease infinite}
+.story-sl{font-size:.62rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--c2)}
+.story-note{font-size:.8rem;color:var(--c5);line-height:1.65;margin-top:auto;padding-top:.8rem}
+.story-invite{background:var(--c1);border:1px solid var(--rule-l);display:flex;flex-direction:column;justify-content:space-between;padding:2.8rem 2rem}
+.si-t{font-family:'Cormorant',serif;font-size:1.45rem;font-weight:300;font-style:italic;color:var(--cw);line-height:1.3;margin-bottom:1rem}
+.si-d{font-size:.82rem;color:rgba(255,255,255,.45);line-height:1.7;margin-bottom:2rem}
+
+/* ── QUOTE ── */
+.qband{background:var(--c3);padding:3.5rem 2rem;text-align:center}
+.qband blockquote{font-family:'Cormorant',serif;font-size:clamp(1.5rem,3vw,2.5rem);font-weight:300;font-style:italic;color:var(--c1);max-width:740px;margin:0 auto;line-height:1.35}
+
+/* ── CTA ── */
+.cta-sec{background:var(--c1);padding:7rem 2rem;text-align:center;position:relative;overflow:hidden}
+.cta-t{font-family:'Cormorant',serif;font-size:clamp(2.2rem,5.5vw,4rem);font-weight:300;color:var(--cw);line-height:1.1;max-width:600px;margin:0 auto 1rem;position:relative;z-index:1}
+.cta-s{font-size:.94rem;color:rgba(255,255,255,.48);line-height:1.8;max-width:460px;margin:0 auto 2.8rem;position:relative;z-index:1}
+.cta-acts{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;position:relative;z-index:1}
+
+/* ── FOOTER — single line ── */
+footer{background:#0A1C1F;padding:1.4rem 3.5rem;display:flex;align-items:center;justify-content:space-between;gap:2rem;flex-wrap:nowrap}
+.foot-copy{font-size:.63rem;color:rgba(255,255,255,.2);letter-spacing:.06em;white-space:nowrap}
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes scrollFade{0%,100%{opacity:.3}50%{opacity:1}}
+@keyframes pulse{0%,100%{opacity:.6;transform:scale(1)}50%{opacity:1;transform:scale(1.15)}}
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .7s ease,transform .7s ease}
+.reveal.in{opacity:1;transform:none}
+.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}.d4{transition-delay:.4s}
+
+/* ── RESPONSIVE ── */
+@media(max-width:980px){
+  nav{padding:1rem 1.5rem}
+  .nav-links li:not(:last-child){display:none}
+  .inner{padding:0 1.5rem}
+  .hero{padding:8rem 1.5rem 5rem}.hero-scroll{left:1.5rem}
+  .pain-outcomes{grid-template-columns:1fr}
+  .pain-grid{grid-template-columns:1fr;gap:1rem}
+  .what-layout{grid-template-columns:1fr;gap:1.5rem}
+  .what-row{grid-template-columns:48px 1fr;gap:1rem}
+  .val-intro-row{grid-template-columns:1fr;gap:1.5rem}
+  .value-shell,.deliv-intro,.deliv-cta{grid-template-columns:1fr;display:grid}
+  .value-panel-grid,.deliv-proof{grid-template-columns:1fr}
+  .cmp-hc,.cmp-c{padding:.9rem 1rem;font-size:.82rem}
+  .proc-steps{grid-template-columns:1fr}
+  .deliv-g{grid-template-columns:1fr 1fr}
+  .stories-g{grid-template-columns:1fr 1fr}
+  footer{flex-wrap:wrap;padding:1.4rem 1.5rem;gap:1rem}
+}
+@media(max-width:600px){
+  .cmp-h,.cmp-r{grid-template-columns:1fr 1fr}
+  .cmp-hc.sp,.cmp-c.sp{display:none}
+  .deliv-g{grid-template-columns:1fr}
+  .stories-g{grid-template-columns:1fr}
+  .proc-steps{grid-template-columns:1fr}
+  .value-stage{padding:1.5rem}
+  .val-tab{grid-template-columns:1fr}
+  .vt-arrow,.vt-num{display:none}
+  .value-panel-grid{grid-template-columns:1fr}
+  .deliv-cta{padding:1.4rem 1.3rem}
+}
+
+/* ═══════════════════════════════════════
+   ENHANCED: HOW IT CREATES VALUE
+═══════════════════════════════════════ */
+.val-tab{border-left:3px solid transparent;transition:border-color .2s,background .2s,transform .2s;padding-left:calc(1.1rem - 3px)}
+.val-tab.active,.val-tab:hover,.val-tab:focus-visible{border-left-color:rgba(136,189,188,.35)}
+.val-tab.active{border-left-color:var(--c3)!important;background:rgba(37,78,88,.055)!important}
+.val-tab.active .vt-num{color:var(--c3);opacity:1}
+.val-tab.active .vt-arrow{color:var(--c3)}
+.val-tab.active .vt-tease{color:var(--c2)}
+.value-stat-bar{display:flex;gap:2rem;margin:1.5rem 0 1.9rem;padding:1.15rem 1.35rem;background:rgba(37,78,88,.04);border-left:3px solid rgba(136,189,188,.42);flex-wrap:wrap}
+.vsb-item{display:flex;flex-direction:column;gap:.22rem}
+.vsb-num{font-family:'Cormorant',serif;font-size:2rem;font-weight:300;color:var(--c2);line-height:1}
+.vsb-lbl{font-size:.6rem;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--c5);line-height:1.4;max-width:250px}
+.vsb-divider{width:1px;background:var(--rule);align-self:stretch;flex-shrink:0}
+/* reveal rows replace the card grid */
+.value-rows{margin-top:1.3rem;border-top:1px solid var(--rule)}
+.value-row{display:grid;grid-template-columns:160px 1fr;gap:1.4rem;align-items:baseline;padding:.9rem 0;border-bottom:1px solid var(--rule);opacity:0;transform:translateY(10px);transition:background .2s}
+.value-panel.active .value-row{animation:fadeUp .38s ease forwards}
+.value-panel.active .value-row:nth-child(1){animation-delay:.08s}
+.value-panel.active .value-row:nth-child(2){animation-delay:.18s}
+.value-panel.active .value-row:nth-child(3){animation-delay:.28s}
+.value-row:hover{background:rgba(37,78,88,.03);margin:0 -.8rem;padding-left:.8rem;padding-right:.8rem;border-radius:1px}
+.value-row-lbl{font-size:.56rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--c3);padding-top:.1rem;flex-shrink:0}
+.value-row-val{font-size:.88rem;color:var(--c4);line-height:1.6}
+@media(max-width:600px){.value-row{grid-template-columns:1fr}.value-row-lbl{margin-bottom:.2rem}}
+
+/* ═══════════════════════════════════════
+   ENHANCED: HOW WE DIFFER
+═══════════════════════════════════════ */
+.cmp-hc.sia-hd{background:var(--c2);color:var(--cw);display:flex;flex-direction:column;gap:.45rem;padding-top:1.3rem;padding-bottom:1.3rem}
+.sia-hd-title{font-size:.62rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--cw)}
+.sia-hd-badge{display:inline-block;font-size:.5rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--c3);border:1px solid rgba(136,189,188,.3);padding:.22rem .6rem;width:fit-content}
+.cmp-c.sia-val{background:rgba(37,78,88,.04);color:var(--c1);font-weight:400}
+.cmp-c.trad-val{color:var(--c6)}
+.cmp-check{color:var(--c3);flex-shrink:0;font-weight:700;font-size:.78rem;line-height:1.55;margin-right:.1rem}
+.cmp-dash{color:var(--c6);flex-shrink:0;opacity:.45;font-size:.78rem;line-height:1.55;margin-right:.1rem}
+.cmp-callout-bar{margin-top:0;padding:1.5rem 1.8rem;background:var(--c2);display:flex;align-items:center;justify-content:space-between;gap:2rem;border-top:1px solid var(--rule)}
+.cmp-callout-q{font-family:'Cormorant',serif;font-size:1.25rem;font-weight:300;font-style:italic;color:var(--cw);line-height:1.4;max-width:600px}
+.cmp-callout-q em{font-style:normal;color:var(--c3)}
+.cmp-callout-tag{font-size:.58rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(136,189,188,.4);flex-shrink:0;white-space:nowrap}
+@media(max-width:980px){.cmp-callout-bar{flex-direction:column;align-items:flex-start;gap:1rem}}
+
+/* ═══════════════════════════════════════
+   ENHANCED: OUR APPROACH
+═══════════════════════════════════════ */
+.ps-num-circle{width:42px;height:42px;border-radius:50%;border:1px solid rgba(136,189,188,.28);display:flex;align-items:center;justify-content:center;font-family:'Cormorant',serif;font-size:1.4rem;font-weight:300;color:var(--c3);margin-bottom:1.1rem;flex-shrink:0;transition:border-color .25s,background .25s}
+.proc-step:hover .ps-num-circle{border-color:rgba(136,189,188,.55);background:rgba(136,189,188,.05)}
+.ps-insight{font-size:.77rem;color:var(--c5);line-height:1.65;font-style:italic;margin-top:.5rem}
+.ps-list-lbl{font-size:.56rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--c6);display:block;margin-bottom:.45rem;margin-top:1rem;padding-top:.85rem;border-top:1px solid var(--rule)}
+.proc-phase-track{display:flex;align-items:center;margin:2.5rem 0 .5rem;gap:0}
+.ppt-node{display:flex;flex-direction:column;align-items:center;gap:.4rem;flex-shrink:0}
+.ppt-dot{width:8px;height:8px;border-radius:50%;background:var(--c3)}
+.ppt-lbl{font-size:.52rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--c2)}
+.ppt-line{flex:1;height:1px;background:linear-gradient(to right,rgba(136,189,188,.4),rgba(136,189,188,.12),rgba(136,189,188,.4));margin-bottom:.75rem}
+@media(max-width:980px){.proc-phase-track{display:none}}
+
+/* ═══════════════════════════════════════
+   ENHANCED: DELIVERABLES
+═══════════════════════════════════════ */
+.deliv-c{position:relative}
+.deliv-num-badge{position:absolute;bottom:.95rem;right:.95rem;width:26px;height:26px;border-radius:50%;background:rgba(37,78,88,.72);border:1px solid rgba(136,189,188,.28);display:flex;align-items:center;justify-content:center;font-family:'Cormorant',serif;font-size:.9rem;font-weight:400;color:var(--c3);z-index:3;pointer-events:none}
+.deliv-format{display:inline-block;font-size:.53rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:rgba(136,189,188,.52);border:1px solid rgba(136,189,188,.18);padding:.22rem .55rem;margin-bottom:.5rem}
+.deliv-proof-card{position:relative;padding-left:1.4rem}
+.deliv-proof-card::before{content:'';position:absolute;top:0;left:0;bottom:0;width:3px;background:rgba(136,189,188,.5)}
+.deliv-proof-icon{font-size:1.1rem;color:rgba(136,189,188,.45);display:block;margin-bottom:.4rem;line-height:1}
+.deliv-cta{border-left:3px solid rgba(136,189,188,.35)}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════ NAV ═══════════════ -->
+<nav id="nav">
+  <a href="#" class="nav-brand" aria-label="CultivateLAND">
+    <img src="CultivateLAND Visual ID-cropped.svg" height="26" alt="CultivateLAND" style="display:block;filter:brightness(0) invert(1);opacity:.9">
+  </a>
+  <ul class="nav-links">
+    <li><a href="#what">Approach</a></li>
+    <li><a href="#value">Value</a></li>
+    <li><a href="#contact" class="nav-cta">Let's Talk</a></li>
+  </ul>
+</nav>
+
+<!-- ═══════════════ HERO ═══════════════ -->
+<div class="hero">
+  <svg class="hero-topo" viewBox="0 0 1400 900" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <g fill="none" stroke="#88BDBC" stroke-width=".8">
+      <ellipse cx="920" cy="450" rx="95" ry="62"/><ellipse cx="920" cy="450" rx="170" ry="114"/>
+      <ellipse cx="920" cy="450" rx="258" ry="174"/><ellipse cx="920" cy="450" rx="358" ry="248"/>
+      <ellipse cx="920" cy="450" rx="468" ry="330"/><ellipse cx="920" cy="450" rx="590" ry="420"/>
+      <ellipse cx="920" cy="450" rx="720" ry="520"/>
+      <ellipse cx="260" cy="170" rx="58" ry="40"/><ellipse cx="260" cy="170" rx="108" ry="74"/><ellipse cx="260" cy="170" rx="168" ry="118"/>
+      <ellipse cx="1180" cy="730" rx="68" ry="44"/><ellipse cx="1180" cy="730" rx="128" ry="84"/><ellipse cx="1180" cy="730" rx="198" ry="134"/>
+    </g>
+  </svg>
+  <div class="hero-glow"></div>
+  <div class="hero-fade"></div>
+  <!-- <p class="hero-eyebrow">CultivateLAND · Early-Phase Strategy</p> -->
+  <h1 class="hero-title">Site <em>Intelligence</em><br>Analysis</h1>
+  <div class="hero-line"></div>
+  <p class="hero-sub">Turn site complexity into clarity.</p>
+  <div class="hero-acts">
+    <a href="#what" class="btn-p">Explore the Approach</a>
+    <a href="#contact" class="btn-o">Start a Conversation</a>
+  </div>
+  <div class="hero-scroll">
+    <div class="scroll-bar"></div>
+    <span>Scroll to explore</span>
+  </div>
+</div>
+
+<!-- ═══════════════ CHALLENGE ═══════════════ -->
+<div class="sec-o">
+  <div class="inner">
+    <span class="eyebrow reveal">The Challenge</span>
+    <h2 class="h2 reveal d1">The most consequential decisions happen <em>before most teams are ready to make them.</em></h2>
+    <div class="rule reveal d2"></div>
+    <p class="pain-lede reveal d2">Teams often commit before the land is truly understood. That is when cost, risk, and missed upside start compounding.</p>
+    <!-- <div class="pain-outcomes reveal d3">
+      <div class="pain-outcome">
+        <strong>Optionality Shrinks</strong>
+        <span>The first workable answer wins too early.</span>
+      </div>
+      <div class="pain-outcome">
+        <strong>Redesign Multiplies</strong>
+        <span>Late discoveries trigger expensive rework.</span>
+      </div>
+      <div class="pain-outcome">
+        <strong>Confidence Drops</strong>
+        <span>Teams lose clarity on both risk and upside.</span>
+      </div>
+    </div> -->
+    <div class="pain-grid reveal">
+
+      <div class="pain-card">
+        <div class="pain-vis">
+          <svg viewBox="0 0 360 200" xmlns="http://www.w3.org/2000/svg">
+            <rect width="360" height="200" fill="#0D2328"/>
+            <rect x="30" y="36" width="88" height="128" rx="2" fill="none" stroke="#88BDBC" stroke-width="1.2" opacity=".45"/>
+            <rect x="44" y="56" width="44" height="4" rx="1" fill="#88BDBC" opacity=".65"/>
+            <rect x="44" y="68" width="58" height="2.5" rx="1" fill="#88BDBC" opacity=".24"/>
+            <rect x="44" y="78" width="51" height="2.5" rx="1" fill="#88BDBC" opacity=".24"/>
+            <rect x="44" y="88" width="60" height="2.5" rx="1" fill="#88BDBC" opacity=".24"/>
+            <rect x="44" y="105" width="52" height="16" rx="1" fill="#254E58" opacity=".42"/>
+            <rect x="44" y="128" width="38" height="16" rx="1" fill="#254E58" opacity=".32"/>
+            <text x="74" y="26" text-anchor="middle" font-family="'Nunito Sans',sans-serif" font-size="8" font-weight="700" fill="#88BDBC" opacity=".45" letter-spacing="1.8">BRIEF BECOMES TRUTH</text>
+            <line x1="128" y1="102" x2="178" y2="102" stroke="#9E9C98" stroke-width="1.4" stroke-dasharray="5,5" opacity=".42"/>
+            <polygon points="178,97 188,102 178,107" fill="#9E9C98" opacity=".42"/>
+            <rect x="136" y="88" width="38" height="16" rx="1" fill="#1A3840"/>
+            <text x="155" y="99.5" text-anchor="middle" font-family="'Nunito Sans',sans-serif" font-size="6.8" font-weight="700" fill="#9E9C98" opacity=".6" letter-spacing="1">ASSUMED</text>
+            <rect x="202" y="32" width="128" height="136" rx="2" fill="none" stroke="#88BDBC" stroke-width="1.2" opacity=".34"/>
+            <rect x="212" y="44" width="44" height="38" rx="1" fill="#254E58" opacity=".48"/>
+            <rect x="262" y="44" width="58" height="38" rx="1" fill="#254E58" opacity=".36"/>
+            <rect x="212" y="88" width="108" height="30" rx="1" fill="#254E58" opacity=".24"/>
+            <path d="M218 140 C240 116 260 106 282 102 C299 99 311 88 321 70" fill="none" stroke="rgba(200,95,78,.62)" stroke-width="2" stroke-linecap="round"/>
+            <circle cx="238" cy="126" r="4.5" fill="rgba(200,95,78,.16)" stroke="rgba(200,95,78,.65)" stroke-width="1.2"/>
+            <circle cx="285" cy="100" r="4.5" fill="rgba(200,95,78,.16)" stroke="rgba(200,95,78,.65)" stroke-width="1.2"/>
+            <circle cx="321" cy="70" r="4.5" fill="rgba(200,95,78,.16)" stroke="rgba(200,95,78,.65)" stroke-width="1.2"/>
+            <rect x="220" y="134" width="96" height="18" rx="1" fill="rgba(17,45,50,.92)" stroke="rgba(200,95,78,.32)" stroke-width="1"/>
+            <text x="268" y="146.5" text-anchor="middle" font-family="'Nunito Sans',sans-serif" font-size="7" font-weight="700" fill="rgba(220,140,120,.76)" letter-spacing=".9">REAL SITE LOGIC ARRIVES LATE</text>
+          </svg>
+          <div class="svg-ph">Placeholder</div>
+        </div>
+        <div class="pain-body">
+          <!-- <span class="pain-tag">Pattern 01</span> -->
+          <div class="pain-stmt">Wrong assumptions inherited, not chosen</div>
+          <p class="pain-desc">When site analysis is treated as a formality, teams absorb assumptions from the brief. Constraints become inherited facts. By the time the gap surfaces, options have already narrowed.</p>
+          <!-- <div class="pain-meta">Consequence · Strategy starts from fiction instead of site reality</div> -->
+        </div>
+      </div>
+
+      <div class="pain-card">
+        <div class="pain-vis">
+          <svg viewBox="0 0 360 200" xmlns="http://www.w3.org/2000/svg">
+            <rect width="360" height="200" fill="#0D2328"/>
+            <text x="34" y="38" font-family="'Nunito Sans',sans-serif" font-size="8" font-weight="700" fill="#88BDBC" opacity=".38" letter-spacing="1.8">WHEN WE SHOULD KNOW</text>
+            <rect x="34" y="52" width="78" height="22" rx="1" fill="rgba(136,189,188,.12)" stroke="#88BDBC" stroke-width="1" stroke-dasharray="4,3" opacity=".72"/>
+            <text x="73" y="66" text-anchor="middle" font-family="'Nunito Sans',sans-serif" font-size="6.8" font-weight="700" fill="#88BDBC" opacity=".74" letter-spacing=".8">SITE INTELLIGENCE</text>
+            <line x1="34" y1="104" x2="330" y2="104" stroke="#254E58" stroke-width="1.3" opacity=".62"/>
+            <rect x="34" y="88" width="78" height="16" rx="1" fill="#254E58" opacity=".56"/>
+            <rect x="120" y="88" width="82" height="16" rx="1" fill="#254E58" opacity=".44"/>
+            <rect x="210" y="88" width="54" height="16" rx="1" fill="#254E58" opacity=".34"/>
+            <rect x="272" y="88" width="58" height="16" rx="1" fill="#254E58" opacity=".26"/>
+            <text x="73" y="119" text-anchor="middle" font-family="'Nunito Sans',sans-serif" font-size="6.8" font-weight="700" fill="#88BDBC" opacity=".44" letter-spacing=".7">DUE DILIGENCE</text>
+            <text x="161" y="119" text-anchor="middle" font-family="'Nunito Sans',sans-serif" font-size="6.8" font-weight="700" fill="#88BDBC" opacity=".38" letter-spacing=".7">DESIGN</text>
+            <text x="237" y="119" text-anchor="middle" font-family="'Nunito Sans',sans-serif" font-size="6.8" font-weight="700" fill="#88BDBC" opacity=".32" letter-spacing=".7">PERMIT</text>
+            <text x="301" y="119" text-anchor="middle" font-family="'Nunito Sans',sans-serif" font-size="6.8" font-weight="700" fill="#88BDBC" opacity=".28" letter-spacing=".7">BUILD</text>
+            <line x1="181" y1="40" x2="181" y2="87" stroke="rgba(200,95,78,.75)" stroke-width="1.6" stroke-dasharray="4,4"/>
+            <polygon points="181,88 176,78 186,78" fill="rgba(200,95,78,.75)"/>
+            <rect x="140" y="18" width="82" height="18" rx="1" fill="rgba(17,45,50,.92)" stroke="rgba(200,95,78,.34)" stroke-width="1"/>
+            <text x="181" y="30.5" text-anchor="middle" font-family="'Nunito Sans',sans-serif" font-size="6.8" font-weight="700" fill="rgba(220,140,120,.8)" letter-spacing=".9">CONSTRAINT FOUND HERE</text>
+            <text x="34" y="148" font-family="'Nunito Sans',sans-serif" font-size="7" fill="#88BDBC" opacity=".3" font-weight="700" letter-spacing="1">COST TO CHANGE</text>
+            <rect x="34" y="154" width="38" height="10" rx=".5" fill="rgba(136,189,188,.22)"/>
+            <rect x="120" y="148" width="50" height="16" rx=".5" fill="rgba(136,189,188,.34)"/>
+            <rect x="210" y="142" width="58" height="22" rx=".5" fill="rgba(200,95,78,.32)"/>
+            <rect x="272" y="134" width="58" height="30" rx=".5" fill="rgba(200,95,78,.5)"/>
+          </svg>
+          <div class="svg-ph">Placeholder</div>
+        </div>
+        <div class="pain-body">
+          <!-- <span class="pain-tag">Pattern 02</span> -->
+          <div class="pain-stmt">Critical constraints surface at the wrong moment</div>
+          <p class="pain-desc">Grading complexity, drainage, and environmental limits rarely appear in early due diligence. They emerge mid-design, when the cost of being wrong has already compounded.</p>
+          <!-- <div class="pain-meta">Consequence · The cheapest answer early becomes the most expensive answer later</div> -->
+        </div>
+      </div>
+
+      <div class="pain-card">
+        <div class="pain-vis">
+          <svg viewBox="0 0 360 200" xmlns="http://www.w3.org/2000/svg">
+            <rect width="360" height="200" fill="#0D2328"/>
+            <circle cx="44" cy="100" r="8" fill="none" stroke="#88BDBC" stroke-width="1.4" opacity=".58"/>
+            <circle cx="44" cy="100" r="2.6" fill="#88BDBC" opacity=".68"/>
+            <line x1="52" y1="100" x2="88" y2="100" stroke="#88BDBC" stroke-width="1.3" opacity=".42"/>
+            <circle cx="88" cy="100" r="4" fill="#88BDBC" opacity=".58"/>
+            <path d="M 88 100 C 126 100 164 100 204 100 C 238 100 266 100 296 100" fill="none" stroke="#9E9C98" stroke-width="2" stroke-linecap="round" opacity=".36"/>
+            <text x="190" y="90" text-anchor="middle" font-family="'Nunito Sans',sans-serif" font-size="7" font-weight="700" fill="#9E9C98" opacity=".36" letter-spacing="1">DEFAULT PATH</text>
+            <circle cx="296" cy="100" r="7" fill="none" stroke="#9E9C98" stroke-width="1.2" opacity=".28"/>
+            <path d="M 88 100 C 120 58 162 38 214 40 C 248 42 279 48 304 54" fill="none" stroke="#88BDBC" stroke-width="2.2" stroke-linecap="round" stroke-dasharray="6,4" opacity=".72"/>
+            <circle cx="304" cy="54" r="8" fill="rgba(136,189,188,.14)" stroke="#88BDBC" stroke-width="1.4" opacity=".78"/>
+            <text x="278" y="36" text-anchor="middle" font-family="'Nunito Sans',sans-serif" font-size="7.3" font-weight="700" fill="#88BDBC" opacity=".74" letter-spacing="1">HIGHER VALUE</text>
+            <path d="M 88 100 C 124 132 162 150 208 154 C 239 156 265 150 286 138" fill="none" stroke="#88BDBC" stroke-width="1.4" stroke-linecap="round" stroke-dasharray="5,5" opacity=".38"/>
+            <circle cx="286" cy="138" r="6" fill="rgba(136,189,188,.08)" stroke="#88BDBC" stroke-width="1" opacity=".42"/>
+            <text x="250" y="164" text-anchor="middle" font-family="'Nunito Sans',sans-serif" font-size="7" font-weight="700" fill="#88BDBC" opacity=".34" letter-spacing="1">ALTERNATIVE NEVER TESTED</text>
+            <rect x="126" y="28" width="92" height="18" rx="1" fill="rgba(17,45,50,.92)" stroke="rgba(136,189,188,.24)" stroke-width=".9"/>
+            <text x="172" y="40.5" text-anchor="middle" font-family="'Nunito Sans',sans-serif" font-size="7" font-weight="700" fill="rgba(136,189,188,.58)" letter-spacing=".8">ONLY ONE FUTURE STUDIED</text>
+          </svg>
+          <div class="svg-ph">Placeholder</div>
+        </div>
+        <div class="pain-body">
+          <!-- <span class="pain-tag">Pattern 03</span> -->
+          <div class="pain-stmt">The highest-value path was never fully explored</div>
+          <p class="pain-desc">Most projects default to the first viable model. Alternative configurations — more resilient, more valuable, more distinct — are never properly tested before optionality is lost.</p>
+          <!-- <div class="pain-meta">Consequence · The project becomes feasible before it becomes exceptional</div> -->
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ WHAT IT IS ═══════════════ -->
+<div id="what" class="sec-d">
+  <div class="inner">
+    <span class="eyebrow eyebrow-l reveal">What It Is</span>
+    <h2 class="h2 h2-l reveal d1">Understanding how a site <em>truly works</em></h2>
+    <div class="rule reveal d2"></div>
+
+    <div class="what-layout">
+      <div class="what-strip">
+        <div class="what-row reveal d1">
+          <div class="what-n">01</div>
+          <div class="what-copy">
+            <div class="what-title">Reveal How the Land Works</div>
+            <div class="what-desc">Read the site as a system, not a checklist.</div>
+          </div>
+        </div>
+        <div class="what-row reveal d2">
+          <div class="what-n">02</div>
+          <div class="what-copy">
+            <div class="what-title">Surface What's Hidden</div>
+            <div class="what-desc">Get constraints before becoming problems.</div>
+          </div>
+        </div>
+        <div class="what-row reveal d3">
+          <div class="what-n">03</div>
+          <div class="what-copy">
+            <div class="what-title">Explore Multiple Futures</div>
+            <div class="what-desc">Test options before one path gets locked in.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="diag-wrap reveal d2">
+        <div class="svg-ph">Placeholder</div>
+        <svg viewBox="0 0 820 360" xmlns="http://www.w3.org/2000/svg" aria-label="Placeholder for site analysis example">
+          <path d="M 138 298 L 102 190 L 94 116 L 172 52 L 344 34 L 538 40 L 684 116 L 702 242 L 664 308 L 444 326 Z"
+                fill="none" stroke="#88BDBC" stroke-width="1.5" stroke-dasharray="7,5" opacity=".3"/>
+          <line x1="102" y1="190" x2="86" y2="190" stroke="#88BDBC" stroke-width="1" opacity=".25"/>
+          <line x1="172" y1="52" x2="172" y2="36" stroke="#88BDBC" stroke-width="1" opacity=".25"/>
+          <line x1="684" y1="116" x2="698" y2="104" stroke="#88BDBC" stroke-width="1" opacity=".25"/>
+          <line x1="664" y1="308" x2="676" y2="320" stroke="#88BDBC" stroke-width="1" opacity=".25"/>
+          <text x="410" y="168" text-anchor="middle" font-family="'Questa Sans','Nunito Sans',sans-serif" font-size="11" font-weight="700" fill="#88BDBC" opacity=".35" letter-spacing="4">PLACEHOLDER</text>
+          <text x="410" y="190" text-anchor="middle" font-family="'Questa Sans','Nunito Sans',sans-serif" font-size="9.5" fill="#88BDBC" opacity=".2" letter-spacing="2">Site Analysis Example</text>
+          <text x="410" y="210" text-anchor="middle" font-family="'Questa Sans','Nunito Sans',sans-serif" font-size="8.5" fill="#88BDBC" opacity=".14" letter-spacing="1">An anonymized project analysis will appear here</text>
+          <g transform="translate(762,34)" opacity=".18">
+            <line x1="0" y1="20" x2="0" y2="2" stroke="#88BDBC" stroke-width="1.5"/>
+            <polygon points="0,0 -4,9 4,9" fill="#88BDBC"/>
+            <text x="-4" y="30" font-family="'Nunito Sans',sans-serif" font-size="9" fill="#88BDBC">N</text>
+          </g>
+          <g transform="translate(40,298)" opacity=".18">
+            <line x1="0" y1="0" x2="60" y2="0" stroke="#88BDBC" stroke-width="1"/>
+            <line x1="0" y1="-4" x2="0" y2="4" stroke="#88BDBC" stroke-width="1"/>
+            <line x1="60" y1="-4" x2="60" y2="4" stroke="#88BDBC" stroke-width="1"/>
+            <text x="30" y="-7" text-anchor="middle" font-family="'Nunito Sans',sans-serif" font-size="7.5" fill="#88BDBC" letter-spacing="1">SCALE</text>
+          </g>
+        </svg>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ VALUE ═══════════════ -->
+<div id="value" class="sec-w">
+  <div class="inner">
+    <div style="margin-bottom:4rem">
+      <span class="eyebrow reveal">How It Creates Value</span>
+      <h2 class="h2 reveal d1">Five ways site intelligence improves <em>every project.</em></h2>
+      <div class="rule reveal d2"></div>
+    </div>
+
+    <div class="value-shell reveal">
+      <div class="value-tabs" role="tablist" aria-label="Ways site intelligence creates value">
+        <button class="val-tab active" type="button" role="tab" aria-selected="true" aria-controls="value-panel-upside" id="value-tab-upside" data-value="upside">
+          <span class="vt-num">01</span>
+          <span class="vt-copy">
+            <span class="vt-title">Uncover Upside Others Miss</span>
+            <span class="vt-tease">Unlock hidden advantages.</span>
+          </span>
+          <span class="vt-arrow">→</span>
+        </button>
+        <button class="val-tab" type="button" role="tab" aria-selected="false" aria-controls="value-panel-risk" id="value-tab-risk" data-value="risk">
+          <span class="vt-num">02</span>
+          <span class="vt-copy">
+            <span class="vt-title">Reduce Risk Early</span>
+            <span class="vt-tease">See cost drivers before they bite.</span>
+          </span>
+          <span class="vt-arrow">→</span>
+        </button>
+        <button class="val-tab" type="button" role="tab" aria-selected="false" aria-controls="value-panel-decisions" id="value-tab-decisions" data-value="decisions">
+          <span class="vt-num">03</span>
+          <span class="vt-copy">
+            <span class="vt-title">Accelerate Decisions</span>
+            <span class="vt-tease">Turn ambiguity into action.</span>
+          </span>
+          <span class="vt-arrow">→</span>
+        </button>
+        <button class="val-tab" type="button" role="tab" aria-selected="false" aria-controls="value-panel-alignment" id="value-tab-alignment" data-value="alignment">
+          <span class="vt-num">04</span>
+          <span class="vt-copy">
+            <span class="vt-title">Align All Stakeholders</span>
+            <span class="vt-tease">Give everyone one clear direction.</span>
+          </span>
+          <span class="vt-arrow">→</span>
+        </button>
+        <button class="val-tab" type="button" role="tab" aria-selected="false" aria-controls="value-panel-enduring" id="value-tab-enduring" data-value="enduring">
+          <span class="vt-num">05</span>
+          <span class="vt-copy">
+            <span class="vt-title">Build Long-Term Value</span>
+            <span class="vt-tease">Set up stronger long-term value.</span>
+          </span>
+          <span class="vt-arrow">→</span>
+        </button>
+      </div>
+
+      <div class="value-stage">
+        <div class="value-panel active" id="value-panel-upside" role="tabpanel" aria-labelledby="value-tab-upside">
+          <span class="value-kicker">Strategic upside</span>
+          <h3 class="value-head">Spot hidden upside before anyone.</h3>
+          <div class="value-stat-bar">
+            <div class="vsb-item">
+              <span class="vsb-num">3-5×</span>
+              <span class="vsb-lbl">More options considered</span>
+            </div>
+            <div class="vsb-divider"></div>
+            <div class="vsb-item">
+              <span class="vsb-num">Earlier</span>
+              <span class="vsb-lbl">Upside found before costs lock in</span>
+            </div>
+          </div>
+          <div class="value-rows">
+            <div class="value-row">
+              <span class="value-row-lbl">What becomes clear</span>
+              <span class="value-row-val">Where the site has real leverage and how to use it.</span>
+            </div>
+            <div class="value-row">
+              <span class="value-row-lbl">What changes</span>
+              <span class="value-row-val">A more distinctive, defensible project direction.</span>
+            </div>
+            <div class="value-row">
+              <span class="value-row-lbl">What the team gains</span>
+              <span class="value-row-val">Clearer priorities and a stronger starting brief.</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="value-panel" id="value-panel-risk" role="tabpanel" aria-labelledby="value-tab-risk" hidden>
+          <span class="value-kicker">Risk reduction</span>
+          <h3 class="value-head">Bring hard constraints forward.</h3>
+          <div class="value-stat-bar">
+            <div class="vsb-item">
+              <span class="vsb-num">Pre-design</span>
+              <span class="vsb-lbl">Constraints found early</span>
+            </div>
+            <div class="vsb-divider"></div>
+            <div class="vsb-item">
+              <span class="vsb-num">Fewer</span>
+              <span class="vsb-lbl">Late-stage surprises and pivots</span>
+            </div>
+          </div>
+          <div class="value-rows">
+            <div class="value-row">
+              <span class="value-row-lbl">What becomes clear</span>
+              <span class="value-row-val">Where risk is concentrated and how serious it is.</span>
+            </div>
+            <div class="value-row">
+              <span class="value-row-lbl">What changes</span>
+              <span class="value-row-val">Less wasted design spend on unworkable directions.</span>
+            </div>
+            <div class="value-row">
+              <span class="value-row-lbl">What the team gains</span>
+              <span class="value-row-val">Fewer late-stage reversals and budget surprises.</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="value-panel" id="value-panel-decisions" role="tabpanel" aria-labelledby="value-tab-decisions" hidden>
+          <span class="value-kicker">Decision velocity</span>
+          <h3 class="value-head">Turn site complexity into decisions.</h3>
+          <div class="value-stat-bar">
+            <div class="vsb-item">
+              <span class="vsb-num">Clear</span>
+              <span class="vsb-lbl">Sequence of decisions</span>
+            </div>
+            <div class="vsb-divider"></div>
+            <div class="vsb-item">
+              <span class="vsb-num">Faster</span>
+              <span class="vsb-lbl">Team alignment on direction</span>
+            </div>
+          </div>
+          <div class="value-rows">
+            <div class="value-row">
+              <span class="value-row-lbl">What becomes clear</span>
+              <span class="value-row-val">Which options deserve attention and in what order.</span>
+            </div>
+            <div class="value-row">
+              <span class="value-row-lbl">What changes</span>
+              <span class="value-row-val">Faster, more confident movement into action.</span>
+            </div>
+            <div class="value-row">
+              <span class="value-row-lbl">What the team gains</span>
+              <span class="value-row-val">Cleaner tradeoffs with less back-and-forth.</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="value-panel" id="value-panel-alignment" role="tabpanel" aria-labelledby="value-tab-alignment" hidden>
+          <span class="value-kicker">Shared understanding</span>
+          <h3 class="value-head">Clear site read for every stakeholder.</h3>
+          <div class="value-stat-bar">
+            <div class="vsb-item">
+              <span class="vsb-num">One</span>
+              <span class="vsb-lbl">Clear Direction</span>
+            </div>
+            <div class="vsb-divider"></div>
+            <div class="vsb-item">
+              <span class="vsb-num">Stronger</span>
+              <span class="vsb-lbl">Stakeholder relations</span>
+            </div>
+          </div>
+          <div class="value-rows">
+            <div class="value-row">
+              <span class="value-row-lbl">What becomes clear</span>
+              <span class="value-row-val">The core site story everyone can anchor to.</span>
+            </div>
+            <div class="value-row">
+              <span class="value-row-lbl">What changes</span>
+              <span class="value-row-val">Stronger, more productive partner conversations.</span>
+            </div>
+            <div class="value-row">
+              <span class="value-row-lbl">What the team gains</span>
+              <span class="value-row-val">Less drift, fewer misreadings, better momentum.</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="value-panel" id="value-panel-enduring" role="tabpanel" aria-labelledby="value-tab-enduring" hidden>
+          <span class="value-kicker">Enduring value</span>
+          <h3 class="value-head">Ground decisions that hold over time.</h3>
+          <div class="value-stat-bar">
+            <div class="vsb-item">
+              <span class="vsb-num">Rooted</span>
+              <span class="vsb-lbl">Logic that outlasts market cycles</span>
+            </div>
+            <div class="vsb-divider"></div>
+            <div class="vsb-item">
+              <span class="vsb-num">Lasting</span>
+              <span class="vsb-lbl">Identity that emerges from place</span>
+            </div>
+          </div>
+          <div class="value-rows">
+            <div class="value-row">
+              <span class="value-row-lbl">What becomes clear</span>
+              <span class="value-row-val">Which moves hold up over time and why.</span>
+            </div>
+            <div class="value-row">
+              <span class="value-row-lbl">What changes</span>
+              <span class="value-row-val">A stronger, more distinctive long-term proposition.</span>
+            </div>
+            <div class="value-row">
+              <span class="value-row-lbl">What the team gains</span>
+              <span class="value-row-val">A framework worth building on for decades.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ COMPARE ═══════════════ -->
+<div id="compare" class="sec-o">
+  <div class="inner">
+    <span class="eyebrow reveal">How We Differ</span>
+    <h2 class="h2 reveal d1">Beyond the traditional inventory <em>&amp; analysis.</em></h2>
+    <div class="rule reveal d2"></div>
+    <div class="cmp-table reveal d2">
+      <div class="cmp-h">
+        <div class="cmp-hc sp" style="background:transparent;"></div>
+        <div class="cmp-hc">Traditional Inventory &amp; Analysis</div>
+        <div class="cmp-hc sia-hd">
+          <div class="cmp-hd-inner">
+            <span class="sia-hd-title">Site Intelligence Analysis</span>
+            <!-- <span class="sia-hd-badge">CultivateLAND Approach</span> -->
+          </div>
+        </div>
+      </div>
+      <div class="cmp-r">
+        <div class="cmp-c lbl sp">Focus</div>
+        <div class="cmp-c trad-val"><span class="cmp-dash">—</span> Documents what is on the site</div>
+        <div class="cmp-c sia-val"><span class="cmp-check">✦</span> Strategically interprets site conditions</div>
+      </div>
+      <div class="cmp-r">
+        <div class="cmp-c lbl sp">Lens</div>
+        <div class="cmp-c trad-val"><span class="cmp-dash">—</span> Existing conditions, constraints &amp; compliance</div>
+        <div class="cmp-c sia-val"><span class="cmp-check">✦</span> Land systems connected to feasibility, value &amp; risk</div>
+      </div>
+      <div class="cmp-r">
+        <div class="cmp-c lbl sp">Role</div>
+        <div class="cmp-c trad-val"><span class="cmp-dash">—</span> Technical prelude to design</div>
+        <div class="cmp-c sia-val"><span class="cmp-check">✦</span> Defines what should happen before decisions harden</div>
+      </div>
+      <div class="cmp-r">
+        <div class="cmp-c lbl sp">Output</div>
+        <div class="cmp-c trad-val"><span class="cmp-dash">—</span> Primarily descriptive</div>
+        <div class="cmp-c sia-val"><span class="cmp-check">✦</span> Primarily decision-shaping</div>
+      </div>
+      <div class="cmp-r">
+        <div class="cmp-c lbl sp">Outcome</div>
+        <div class="cmp-c trad-val"><span class="cmp-dash">—</span> Better documentation of the site</div>
+        <div class="cmp-c sia-val"><span class="cmp-check">✦</span> A more informed direction for what the site can become</div>
+      </div>
+      <div class="cmp-callout-bar">
+        <p class="cmp-callout-q">The difference isn't the depth of the study, it's <em>what the study is built to do.</em></p>
+        <span class="cmp-callout-tag">Intelligence · Not Inventory</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ PROCESS ═══════════════ -->
+<div class="sec-w">
+  <div class="inner">
+    <span class="eyebrow reveal">Our Approach</span>
+    <h2 class="h2 reveal d1">Land intelligence meets <em>development strategy.</em></h2>
+    <div class="rule reveal d2"></div>
+
+    <!-- <div class="proc-phase-track reveal d2">
+      <div class="ppt-node">
+        <div class="ppt-dot"></div>
+        <span class="ppt-lbl">01 · Land Intelligence</span>
+      </div>
+      <div class="ppt-line"></div>
+      <div class="ppt-node">
+        <div class="ppt-dot"></div>
+        <span class="ppt-lbl">02 · Opportunity Mapping</span>
+      </div>
+      <div class="ppt-line"></div>
+      <div class="ppt-node">
+        <div class="ppt-dot"></div>
+        <span class="ppt-lbl">03 · Scenario Exploration</span>
+      </div>
+      <div class="ppt-line"></div>
+      <div class="ppt-node">
+        <div class="ppt-dot"></div>
+        <span class="ppt-lbl">04 · Strategic Framework</span>
+      </div>
+    </div> -->
+
+    <div class="proc-steps">
+
+      <div class="proc-step reveal d1">
+        <div class="ps-dot-wrap">
+          <div class="svg-ph">Placeholder</div>
+          <svg viewBox="0 0 320 160" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <rect width="320" height="160" fill="#F6F7F6"/>
+            <path d="M42 127 L28 88 L46 36 L116 24 L202 32 L280 70 L290 124 L214 140 Z" fill="none" stroke="#88BDBC" stroke-width="2" stroke-dasharray="7,5" opacity=".5"/>
+            <path d="M56 106 C88 84 122 74 158 78 C198 82 230 72 266 48" stroke="#88BDBC" stroke-width="2" opacity=".36" stroke-linecap="round"/>
+            <path d="M56 120 C92 96 132 88 172 92 C206 96 240 86 272 64" stroke="#88BDBC" stroke-width="2" opacity=".52" stroke-linecap="round"/>
+            <path d="M64 136 C100 112 144 104 184 108 C220 112 248 102 280 82" stroke="#88BDBC" stroke-width="2" opacity=".7" stroke-linecap="round"/>
+            <path d="M238 34 C225 56 214 75 206 92 C198 108 186 118 168 126" stroke="#254E58" stroke-width="2.5" opacity=".45" stroke-linecap="round"/>
+            <path d="M166 126 L174 119 L176 129" fill="none" stroke="#254E58" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" opacity=".45"/>
+            <line x1="72" y1="54" x2="56" y2="44" stroke="#254E58" stroke-width="2" opacity=".36" stroke-linecap="round"/>
+            <line x1="230" y1="116" x2="246" y2="128" stroke="#254E58" stroke-width="2" opacity=".36" stroke-linecap="round"/>
+            <circle cx="72" cy="54" r="5" fill="#88BDBC" opacity=".72"/>
+            <circle cx="230" cy="116" r="5" fill="#88BDBC" opacity=".72"/>
+            <rect x="196" y="18" width="86" height="18" rx="1" fill="#112D32"/>
+            <text x="239" y="30.5" text-anchor="middle" font-family="'Nunito Sans',sans-serif" font-size="8" font-weight="700" fill="#88BDBC" opacity=".72" letter-spacing=".9">SYSTEMS FIRST</text>
+          </svg>
+        </div>
+        <!-- <div class="ps-num-circle">01</div> -->
+        <span class="ps-n">Phase 01</span>
+        <div class="ps-t">Land Intelligence</div>
+        <p class="ps-d">We read the land as one connected system, not a checklist of features.</p>
+        <p class="ps-insight">Terrain, water, ecology, and access all interact. We understand how before analysis begins.</p>
+        <!-- <span class="ps-list-lbl">Key outputs</span>
+        <ul class="ps-list">
+          <li>Terrain logic</li>
+          <li>Hydrology</li>
+          <li>Access reads</li>
+          <li>Ecological systems</li>
+        </ul> -->
+      </div>
+
+      <div class="proc-step reveal d2">
+        <div class="ps-dot-wrap">
+          <div class="svg-ph">Placeholder</div>
+          <svg viewBox="0 0 320 160" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <rect width="320" height="160" fill="#F6F7F6"/>
+            <path d="M38 126 L48 44 L118 26 L214 34 L280 72 L266 132 L150 140 Z" fill="none" stroke="#88BDBC" stroke-width="2" opacity=".45"/>
+            <path d="M70 112 L110 66 L156 78 L142 120 Z" fill="rgba(136,189,188,.1)" stroke="#88BDBC" stroke-width="1.5" stroke-dasharray="5,4" opacity=".72"/>
+            <path d="M178 52 L236 62 L240 118 L176 126 L154 90 Z" fill="rgba(200,95,78,.08)" stroke="rgba(200,95,78,.45)" stroke-width="1.5" stroke-dasharray="4,4"/>
+            <path d="M120 38 C152 58 178 76 204 94 C222 106 244 112 272 116" stroke="#254E58" stroke-width="3" opacity=".32" stroke-linecap="round"/>
+            <circle cx="110" cy="66" r="7" fill="rgba(136,189,188,.16)" stroke="#88BDBC" stroke-width="1.5"/>
+            <circle cx="208" cy="94" r="7" fill="rgba(200,95,78,.12)" stroke="rgba(200,95,78,.56)" stroke-width="1.5"/>
+            <circle cx="256" cy="112" r="6" fill="rgba(136,189,188,.14)" stroke="#88BDBC" stroke-width="1.3"/>
+            <rect x="26" y="20" width="84" height="18" rx="1" fill="#112D32"/>
+            <text x="68" y="32.5" text-anchor="middle" font-family="'Nunito Sans',sans-serif" font-size="8" font-weight="700" fill="#88BDBC" opacity=".74" letter-spacing=".9">RISK + UPSIDE MAP</text>
+          </svg>
+        </div>
+        <!-- <div class="ps-num-circle">02</div> -->
+        <span class="ps-n">Phase 02</span>
+        <div class="ps-t">Opportunity Mapping</div>
+        <p class="ps-d">We map where risk concentrates, where upside lives, and what depends on what.</p>
+        <p class="ps-insight">Not everything on a site matters equally. We find what's load-bearing for the project's success.</p>
+        <!-- <span class="ps-list-lbl">Key outputs</span>
+        <ul class="ps-list">
+          <li>Risk hotspots</li>
+          <li>Value zones</li>
+          <li>Dependencies</li>
+          <li>Constraint hierarchy</li>
+        </ul> -->
+      </div>
+
+      <div class="proc-step reveal d3">
+        <div class="ps-dot-wrap">
+          <div class="svg-ph">Placeholder</div>
+          <svg viewBox="0 0 320 160" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <rect width="320" height="160" fill="#F6F7F6"/>
+            <rect x="28" y="30" width="76" height="100" rx="2" fill="none" stroke="#88BDBC" stroke-width="1.6" opacity=".42"/>
+            <rect x="36" y="42" width="60" height="30" fill="rgba(136,189,188,.08)" stroke="#88BDBC" stroke-width="1.2" opacity=".45"/>
+            <rect x="36" y="82" width="42" height="38" fill="rgba(37,78,88,.12)" opacity=".42"/>
+            <text x="66" y="24" text-anchor="middle" font-family="'Nunito Sans',sans-serif" font-size="8" font-weight="700" fill="#88BDBC" opacity=".44" letter-spacing="1">A</text>
+            <rect x="122" y="22" width="76" height="108" rx="2" fill="#112D32" stroke="#88BDBC" stroke-width="1.8" opacity=".88"/>
+            <rect x="132" y="36" width="58" height="34" fill="rgba(136,189,188,.18)" stroke="#88BDBC" stroke-width="1.2" opacity=".82"/>
+            <rect x="132" y="80" width="58" height="40" fill="rgba(136,189,188,.09)" stroke="#88BDBC" stroke-width="1.2" opacity=".7"/>
+            <circle cx="186" cy="34" r="10" fill="#88BDBC"/>
+            <text x="186" y="38" text-anchor="middle" font-family="'Nunito Sans',sans-serif" font-size="8" font-weight="700" fill="#112D32" letter-spacing=".6">BEST</text>
+            <text x="160" y="18" text-anchor="middle" font-family="'Nunito Sans',sans-serif" font-size="8" font-weight="700" fill="#88BDBC" opacity=".78" letter-spacing="1">B</text>
+            <rect x="216" y="30" width="76" height="100" rx="2" fill="none" stroke="#88BDBC" stroke-width="1.6" opacity=".35"/>
+            <rect x="226" y="46" width="54" height="22" fill="rgba(37,78,88,.12)" opacity=".4"/>
+            <path d="M228 116 L248 82 L282 92 L270 122 Z" fill="rgba(136,189,188,.08)" stroke="#88BDBC" stroke-width="1.1" opacity=".42"/>
+            <text x="254" y="24" text-anchor="middle" font-family="'Nunito Sans',sans-serif" font-size="8" font-weight="700" fill="#88BDBC" opacity=".4" letter-spacing="1">C</text>
+          </svg>
+        </div>
+        <!-- <div class="ps-num-circle">03</div> -->
+        <span class="ps-n">Phase 03</span>
+        <div class="ps-t">Scenario Exploration</div>
+        <p class="ps-d">We test multiple futures before any one path gets locked in as the answer.</p>
+        <p class="ps-insight">Most teams pick the first workable option. We explore until we find the best one.</p>
+        <!-- <span class="ps-list-lbl">Key outputs</span>
+        <ul class="ps-list">
+          <li>Option testing</li>
+          <li>Tradeoff logic</li>
+          <li>Path selection</li>
+          <li>Scenario comparison</li>
+        </ul> -->
+      </div>
+
+      <div class="proc-step reveal d4">
+        <div class="ps-dot-wrap">
+          <div class="svg-ph">Placeholder</div>
+          <svg viewBox="0 0 320 160" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <rect width="320" height="160" fill="#F6F7F6"/>
+            <path d="M40 128 L52 44 L118 24 L212 30 L278 70 L266 132 L156 140 Z" fill="none" stroke="#88BDBC" stroke-width="2" opacity=".45"/>
+            <path d="M62 110 C98 100 126 90 156 72 C180 58 208 54 250 60" stroke="#88BDBC" stroke-width="8" opacity=".18" stroke-linecap="round"/>
+            <path d="M92 36 C118 60 136 78 160 98 C178 114 206 122 244 126" stroke="#254E58" stroke-width="6" opacity=".32" stroke-linecap="round"/>
+            <rect x="86" y="78" width="38" height="24" fill="rgba(136,189,188,.18)" stroke="#88BDBC" stroke-width="1.2" opacity=".72"/>
+            <rect x="138" y="58" width="42" height="32" fill="rgba(136,189,188,.12)" stroke="#88BDBC" stroke-width="1.2" opacity=".64"/>
+            <rect x="190" y="80" width="42" height="26" fill="rgba(37,78,88,.12)" stroke="#254E58" stroke-width="1.2" opacity=".52"/>
+            <circle cx="128" cy="48" r="8" fill="rgba(136,189,188,.18)" stroke="#88BDBC" stroke-width="1.5"/>
+            <circle cx="214" cy="62" r="8" fill="rgba(136,189,188,.18)" stroke="#88BDBC" stroke-width="1.5"/>
+            <rect x="212" y="18" width="86" height="18" rx="1" fill="#112D32"/>
+            <text x="255" y="30.5" text-anchor="middle" font-family="'Nunito Sans',sans-serif" font-size="8" font-weight="700" fill="#88BDBC" opacity=".74" letter-spacing=".9">FRAMEWORK READY</text>
+          </svg>
+        </div>
+        <!-- <div class="ps-num-circle">04</div> -->
+        <span class="ps-n">Phase 04</span>
+        <div class="ps-t">Strategic Framework</div>
+        <p class="ps-d">We turn every insight into a clear, usable framework the team can act from.</p>
+        <p class="ps-insight">Analysis without direction isn't a deliverable. We close every engagement with an actionable plan.</p>
+        <!-- <span class="ps-list-lbl">Key outputs</span>
+        <ul class="ps-list">
+          <li>Framework plan</li>
+          <li>Mobility logic</li>
+          <li>Land use strategy</li>
+          <li>Decision narrative</li>
+        </ul> -->
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ DELIVERABLES ═══════════════ -->
+<div id="deliverables" class="sec-m">
+  <div class="inner">
+    <span class="eyebrow eyebrow-l reveal">Deliverables</span>
+    <h2 class="h2 h2-l reveal d1">Tangible outputs that <em>drive decisions.</em></h2>
+    <div class="rule reveal d2"></div>
+    <div class="deliv-g reveal d1">
+ 
+      <div class="deliv-c">
+        <div class="deliv-thumb">
+          <svg viewBox="0 0 260 130" xmlns="http://www.w3.org/2000/svg">
+            <rect width="260" height="130" fill="#1C3C44"/>
+            <polygon points="30,118 22,72 40,30 90,20 170,25 220,65 215,118 110,125" fill="none" stroke="#88BDBC" stroke-width="1.2" opacity=".3"/>
+            <ellipse cx="128" cy="70" rx="58" ry="38" fill="#88BDBC" fill-opacity=".07" stroke="#88BDBC" stroke-width="1" opacity=".32"/>
+            <ellipse cx="128" cy="70" rx="38" ry="25" fill="#88BDBC" fill-opacity=".13" stroke="#88BDBC" stroke-width="1" opacity=".42"/>
+            <ellipse cx="128" cy="70" rx="22" ry="14" fill="#88BDBC" fill-opacity=".22" stroke="#88BDBC" stroke-width="1.2" opacity=".58"/>
+            <ellipse cx="128" cy="70" rx="10" ry="6" fill="#88BDBC" fill-opacity=".4"/>
+            <circle cx="128" cy="70" r="2.5" fill="#88BDBC"/>
+          </svg>
+          <div class="ph-label">Placeholder</div>
+        </div>
+        <div class="deliv-body">
+          <div class="deliv-t">Opportunity Maps</div>
+          <p class="deliv-d">Where value, risk, and development potential concentrate across the site — spatially.</p>
+        </div>
+      </div>
+ 
+      <div class="deliv-c">
+        <div class="deliv-thumb">
+          <svg viewBox="0 0 260 130" xmlns="http://www.w3.org/2000/svg">
+            <rect width="260" height="130" fill="#1C3C44"/>
+            <polygon points="30,118 22,72 40,30 90,20 170,25 220,65 215,118 110,125" fill="none" stroke="#88BDBC" stroke-width="1.2" opacity=".28"/>
+            <polygon points="22,72 55,42 90,90 55,115" fill="#88BDBC" fill-opacity=".08" stroke="#88BDBC" stroke-width="1" stroke-dasharray="5,4" opacity=".48"/>
+            <polygon points="60,30 150,22 165,80 100,95 60,70" fill="#9E9C98" fill-opacity=".07" stroke="#9E9C98" stroke-width="1" stroke-dasharray="4,3" opacity=".42"/>
+            <polygon points="110,60 200,55 220,110 145,120 100,100" fill="#4F4A41" fill-opacity=".09" stroke="#6E6658" stroke-width="1" stroke-dasharray="4,4" opacity=".32"/>
+          </svg>
+          <div class="ph-label">Placeholder</div>
+        </div>
+        <div class="deliv-body">
+          <div class="deliv-t">Constraint & Systems Overlays</div>
+          <p class="deliv-d">Ecological, hydrological, and infrastructural forces layered and made readable.</p>
+        </div>
+      </div>
+ 
+      <div class="deliv-c">
+        <div class="deliv-thumb">
+          <svg viewBox="0 0 260 130" xmlns="http://www.w3.org/2000/svg">
+            <rect width="260" height="130" fill="#1C3C44"/>
+            <rect x="20" y="18" width="80" height="52" fill="#88BDBC" fill-opacity=".12" stroke="#88BDBC" stroke-width=".9" opacity=".52"/>
+            <rect x="108" y="18" width="50" height="52" fill="#254E58" fill-opacity=".4" stroke="#254E58" stroke-width=".9" opacity=".58"/>
+            <rect x="166" y="18" width="74" height="52" fill="#4F4A41" fill-opacity=".18" stroke="#6E6658" stroke-width=".9" opacity=".42"/>
+            <rect x="20" y="78" width="50" height="38" fill="#4F4A41" fill-opacity=".16" stroke="#6E6658" stroke-width=".9" opacity=".38"/>
+            <rect x="78" y="78" width="162" height="38" fill="#88BDBC" fill-opacity=".06" stroke="#88BDBC" stroke-width=".9" opacity=".32"/>
+            <rect x="20" y="68" width="220" height="9" fill="#0F2428"/>
+          </svg>
+          <div class="ph-label">Placeholder</div>
+        </div>
+        <div class="deliv-body">
+          <div class="deliv-t">Development Framework Diagrams</div>
+          <p class="deliv-d">How open space, mobility, land use, and systems work together spatially.</p>
+        </div>
+      </div>
+ 
+      <div class="deliv-c">
+        <div class="deliv-thumb">
+          <svg viewBox="0 0 260 130" xmlns="http://www.w3.org/2000/svg">
+            <rect width="260" height="130" fill="#1C3C44"/>
+            <line x1="132" y1="10" x2="132" y2="120" stroke="#88BDBC" stroke-width=".8" stroke-dasharray="4,3" opacity=".26"/>
+            <text x="22" y="22" font-family="'Nunito Sans',sans-serif" font-size="10" font-weight="700" fill="#88BDBC" opacity=".48" letter-spacing="1">A</text>
+            <text x="145" y="22" font-family="'Nunito Sans',sans-serif" font-size="10" font-weight="700" fill="#88BDBC" opacity=".48" letter-spacing="1">B</text>
+            <rect x="18" y="30" width="105" height="34" rx="1" fill="#88BDBC" fill-opacity=".11" stroke="#88BDBC" stroke-width=".8" opacity=".42"/>
+            <rect x="18" y="70" width="55" height="44" rx="1" fill="#254E58" fill-opacity=".28" stroke="#254E58" stroke-width=".8" opacity=".48"/>
+            <rect x="78" y="70" width="45" height="44" rx="1" fill="#9E9C98" fill-opacity=".11" opacity=".38"/>
+            <rect x="140" y="30" width="102" height="55" rx="1" fill="#88BDBC" fill-opacity=".11" stroke="#88BDBC" stroke-width=".8" opacity=".42"/>
+            <rect x="140" y="90" width="45" height="26" rx="1" fill="#9E9C98" fill-opacity=".11" opacity=".32"/>
+            <rect x="192" y="90" width="52" height="26" rx="1" fill="#254E58" fill-opacity=".22" opacity=".42"/>
+          </svg>
+          <div class="ph-label">Placeholder</div>
+        </div>
+        <div class="deliv-body">
+          <div class="deliv-t">Scenario Comparisons</div>
+          <p class="deliv-d">Development paths evaluated side by side — what each enables and what each risks.</p>
+        </div>
+      </div>
+ 
+      <div class="deliv-c">
+        <div class="deliv-thumb">
+          <svg viewBox="0 0 260 130" xmlns="http://www.w3.org/2000/svg">
+            <rect width="260" height="130" fill="#1C3C44"/>
+            <rect x="22" y="24" width="100" height="4" rx="1.5" fill="#88BDBC" opacity=".58"/>
+            <rect x="22" y="36" width="200" height="3" rx="1" fill="#88BDBC" opacity=".24"/>
+            <rect x="22" y="44" width="178" height="3" rx="1" fill="#88BDBC" opacity=".24"/>
+            <rect x="22" y="52" width="155" height="3" rx="1" fill="#88BDBC" opacity=".24"/>
+            <rect x="22" y="60" width="188" height="3" rx="1" fill="#88BDBC" opacity=".18"/>
+            <rect x="22" y="74" width="88" height="3.5" rx="1" fill="#9E9C98" opacity=".4"/>
+            <rect x="22" y="84" width="210" height="2.5" rx="1" fill="#9E9C98" opacity=".17"/>
+            <rect x="22" y="92" width="194" height="2.5" rx="1" fill="#9E9C98" opacity=".17"/>
+            <rect x="22" y="100" width="165" height="2.5" rx="1" fill="#9E9C98" opacity=".14"/>
+            <rect x="22" y="108" width="130" height="2.5" rx="1" fill="#9E9C98" opacity=".11"/>
+          </svg>
+          <div class="ph-label">Placeholder</div>
+        </div>
+        <div class="deliv-body">
+          <div class="deliv-t">Strategic Narratives</div>
+          <p class="deliv-d">Technical insight synthesized into a narrative ready for investors, partners, and public stakeholders.</p>
+        </div>
+      </div>
+ 
+      <div class="deliv-c">
+        <div class="deliv-thumb">
+          <svg viewBox="0 0 260 130" xmlns="http://www.w3.org/2000/svg">
+            <rect width="260" height="130" fill="#1C3C44"/>
+            <line x1="18" y1="108" x2="242" y2="108" stroke="#88BDBC" stroke-width=".8" opacity=".18"/>
+            <rect x="22" y="80" width="26" height="28" rx="1" fill="#88BDBC" opacity=".22"/>
+            <rect x="54" y="60" width="26" height="48" rx="1" fill="#88BDBC" opacity=".36"/>
+            <rect x="86" y="42" width="26" height="66" rx="1" fill="#88BDBC" opacity=".52"/>
+            <rect x="118" y="52" width="26" height="56" rx="1" fill="#88BDBC" opacity=".42"/>
+            <rect x="150" y="70" width="26" height="38" rx="1" fill="#9E9C98" opacity=".26"/>
+            <rect x="182" y="88" width="26" height="20" rx="1" fill="#9E9C98" opacity=".2"/>
+            <rect x="214" y="75" width="26" height="33" rx="1" fill="#88BDBC" opacity=".3"/>
+            <line x1="136" y1="18" x2="136" y2="108" stroke="#88BDBC" stroke-width=".6" stroke-dasharray="3,3" opacity=".16"/>
+            <text x="22" y="22" font-family="'Nunito Sans',sans-serif" font-size="8" fill="#88BDBC" opacity=".35" font-weight="700" letter-spacing="1">VALUE</text>
+            <text x="150" y="22" font-family="'Nunito Sans',sans-serif" font-size="8" fill="#9E9C98" opacity=".3" font-weight="700" letter-spacing="1">RISK</text>
+          </svg>
+          <div class="ph-label">Placeholder</div>
+        </div>
+        <div class="deliv-body">
+          <div class="deliv-t">Value & Risk Summaries</div>
+          <p class="deliv-d">Where the site's greatest upside lies and what risks need early resolution — clearly synthesized.</p>
+        </div>
+      </div>
+ 
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ PROJECT STORIES ═══════════════ -->
+<div id="stories" class="sec-o">
+  <div class="inner">
+    <span class="eyebrow reveal">Project Stories</span>
+    <h2 class="h2 reveal d1">Work in progress. <em>Stories coming as engagements conclude.</em></h2>
+    <div class="rule reveal d2"></div>
+    <p class="stories-note reveal d2">Case Studies as we develop further, all placeholders now.</p>
+    <div class="stories-g">
+      <div class="story-c reveal d1">
+        <div class="story-img">
+          <svg viewBox="0 0 360 190" xmlns="http://www.w3.org/2000/svg">
+            <defs><filter id="b1"><feGaussianBlur stdDeviation="5"/></filter></defs>
+            <rect width="360" height="190" fill="#182E34"/>
+            <g filter="url(#b1)" opacity=".6">
+              <rect x="25" y="25" width="95" height="68" fill="#254E58"/>
+              <rect x="130" y="25" width="56" height="44" fill="#88BDBC" opacity=".3"/>
+              <rect x="130" y="76" width="56" height="36" fill="#4F4A41" opacity=".4"/>
+              <rect x="198" y="18" width="110" height="136" fill="#254E58" opacity=".55"/>
+              <rect x="25" y="105" width="95" height="58" fill="#88BDBC" opacity=".18"/>
+              <rect x="0" y="90" width="360" height="8" fill="#0D2228"/>
+              <rect x="122" y="0" width="7" height="190" fill="#0D2228"/>
+            </g>
+          </svg>
+          <div class="story-ph">
+            <div class="story-ph-lbl">Placeholder</div>
+            <div class="story-ph-sub">Project documentation in progress</div>
+          </div>
+        </div>
+        <div class="story-body">
+          <div class="story-tags"><span class="story-tag">280 ac</span><span class="story-tag">Mixed-Use</span><span class="story-tag">Sun Belt Metro</span></div>
+          <div class="story-status"><div class="story-dot"></div><span class="story-sl">Engagement Active</span></div>
+          <p class="story-note">Project story available at closeout.</p>
+        </div>
+      </div>
+      <div class="story-c reveal d2">
+        <div class="story-img">
+          <svg viewBox="0 0 360 190" xmlns="http://www.w3.org/2000/svg">
+            <defs><filter id="b2"><feGaussianBlur stdDeviation="4.5"/></filter></defs>
+            <rect width="360" height="190" fill="#182E24"/>
+            <g filter="url(#b2)" opacity=".55">
+              <ellipse cx="110" cy="85" rx="78" ry="58" fill="#254E58" opacity=".6"/>
+              <ellipse cx="255" cy="100" rx="88" ry="68" fill="#254E58" opacity=".5"/>
+              <ellipse cx="255" cy="90" rx="60" ry="44" fill="none" stroke="#88BDBC" stroke-width="1.8" opacity=".45"/>
+              <ellipse cx="255" cy="90" rx="35" ry="26" fill="none" stroke="#88BDBC" stroke-width="1.4" opacity=".55"/>
+              <path d="M 0,172 Q 180,150 360,130" stroke="#0D2228" stroke-width="7" fill="none"/>
+            </g>
+          </svg>
+          <div class="story-ph">
+            <div class="story-ph-lbl">Placeholder</div>
+            <div class="story-ph-sub">Project documentation in progress</div>
+          </div>
+        </div>
+        <div class="story-body">
+          <div class="story-tags"><span class="story-tag">Large Holding</span><span class="story-tag">Family Office</span><span class="story-tag">Resort Corridor</span></div>
+          <div class="story-status"><div class="story-dot"></div><span class="story-sl">Engagement Active</span></div>
+          <p class="story-note">Project story available at closeout.</p>
+        </div>
+      </div>
+      <div class="story-invite reveal d3">
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" style="margin-bottom:1.5rem;opacity:.4" xmlns="http://www.w3.org/2000/svg">
+          <rect x="1" y="1" width="30" height="30" rx="2" stroke="#88BDBC" stroke-width="1" stroke-dasharray="4,3"/>
+          <line x1="16" y1="9" x2="16" y2="23" stroke="#88BDBC" stroke-width="1.5" stroke-linecap="round"/>
+          <line x1="9" y1="16" x2="23" y2="16" stroke="#88BDBC" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+        <p class="si-t">Your project could be the next story here.</p>
+        <p class="si-d">If the site matters, this is the right time to talk.</p>
+        <a href="#contact" class="btn-p" style="align-self:flex-start">Start a Conversation</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ QUOTE ═══════════════ -->
+<div class="qband">
+  <blockquote class="reveal">"We turn site complexity into strategic clarity."</blockquote>
+</div>
+
+<!-- ═══════════════ CTA ═══════════════ -->
+<div id="contact" class="cta-sec">
+  <svg style="position:absolute;inset:0;width:100%;height:100%;opacity:.04;pointer-events:none" viewBox="0 0 1400 600" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <g fill="none" stroke="#88BDBC" stroke-width=".8">
+      <ellipse cx="700" cy="300" rx="105" ry="68"/><ellipse cx="700" cy="300" rx="210" ry="136"/>
+      <ellipse cx="700" cy="300" rx="335" ry="215"/><ellipse cx="700" cy="300" rx="475" ry="305"/><ellipse cx="700" cy="300" rx="635" ry="410"/>
+    </g>
+  </svg>
+  <h2 class="cta-t reveal">Ready to understand what your site could truly become?</h2>
+  <p class="cta-s reveal d1">If you are evaluating a site or early-stage opportunity, let's talk.</p>
+  <div class="cta-acts reveal d2">
+    <a href="mailto:hello@cultivateland.com" class="btn-p">Start a Conversation</a>
+    <a href="#what" class="btn-o">Review the Approach</a>
+  </div>
+</div>
+
+<!-- ═══════════════ FOOTER — single line ═══════════════ -->
+<footer>
+  <a href="#" aria-label="CultivateLAND" style="text-decoration:none;flex-shrink:0">
+    <img src="CultivateLAND Visual ID-cropped.svg" height="20" alt="CultivateLAND" style="display:block;filter:brightness(0) invert(1);opacity:.3">
+  </a>
+
+  <div style="display:flex;align-items:center;gap:.6rem;flex-shrink:0">
+    <span style="font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.18);font-family:'Questa Sans','Nunito Sans',sans-serif;white-space:nowrap">In collaboration with</span>
+    <a href="https://neuracities.com" target="_blank" rel="noopener" aria-label="NeuraCities" style="text-decoration:none;display:flex;align-items:center">
+      <img src="880x191-NC_Name.svg" height="22" alt="NeuraCities" style="display:block;opacity:.75">
+    </a>
+  </div>
+
+  <span class="foot-copy">© 2026 CultivateLAND · Site Intelligence Analysis</span>
+</footer>
+
+<script>
+  const ro = new IntersectionObserver(es=>{
+    es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');ro.unobserve(e.target)}});
+  },{threshold:.08});
+  document.querySelectorAll('.reveal').forEach(el=>ro.observe(el));
+
+  const valueTabs=[...document.querySelectorAll('.val-tab')];
+  const valuePanels=[...document.querySelectorAll('.value-panel')];
+  const activateValue=id=>{
+    valueTabs.forEach(tab=>{
+      const active=tab.dataset.value===id;
+      tab.classList.toggle('active',active);
+      tab.setAttribute('aria-selected',String(active));
+    });
+    valuePanels.forEach(panel=>{
+      const active=panel.id===`value-panel-${id}`;
+      panel.classList.toggle('active',active);
+      panel.hidden=!active;
+    });
+  };
+  valueTabs.forEach(tab=>{
+    tab.addEventListener('click',()=>activateValue(tab.dataset.value));
+    tab.addEventListener('focus',()=>activateValue(tab.dataset.value));
+    tab.addEventListener('mouseenter',()=>{
+      if(window.matchMedia('(hover:hover)').matches) activateValue(tab.dataset.value);
+    });
+  });
+
+  const nav=document.getElementById('nav');
+  window.addEventListener('scroll',()=>{
+    const s=window.scrollY>80,m=window.innerWidth<=980;
+    nav.style.padding=s?(m?'.75rem 1.5rem':'.75rem 3.5rem'):(m?'1rem 1.5rem':'1.2rem 3.5rem');
+  });
+</script>
+</body>
+</html>
